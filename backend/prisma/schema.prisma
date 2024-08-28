@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+//schema= structure of DATABASE
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String        @id @default(uuid()) // UUID for unique user ID
+  walletAddress String        @unique
+  wallets       Wallet[]      @relation("UserWallets") // A user can be part of multiple wallets
+  signatures    Signature[]   // User's signatures on transactions
+  walletOwner   Wallet[]      @relation("WalletOwner") // A user can own multiple wallets
+  memberships   WalletMember[] @relation("UserWalletMemberships") // A user can be part of multiple wallet memberships
+  transactionCreator Transaction[] @relation("TransactionCreator") // Transactions created by the user
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model Wallet {
+  id           String        @id @default(uuid()) // UUID for unique wallet ID
+  owner        User          @relation("WalletOwner", fields: [ownerId], references: [id])
+  ownerId      String
+  members      WalletMember[]
+  transactions Transaction[]
+  users        User[]        @relation("UserWallets") // Users associated with the wallet
+  threshold    Int
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model WalletMember {
+  id        String     @id @default(uuid())
+  wallet    Wallet     @relation(fields: [walletId], references: [id])
+  walletId  String
+  user      User       @relation("UserWalletMemberships", fields: [userId], references: [id]) // Use a new name for clarity
+  userId    String
+  role      String     // Role of the user in the wallet (e.g., "owner", "signer")
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@unique([walletId, userId])
+}
+
+model Transaction {
+  id           String        @id @default(uuid())
+  wallet       Wallet        @relation(fields: [walletId], references: [id])
+  walletId     String
+  creator      User          @relation("TransactionCreator", fields: [creatorId], references: [id])
+  creatorId    String
+  amount       Float
+  destination  String        // Destination address
+  status       String        // Pending, Executed, etc.
+  signatures   Signature[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Signature {
+  id           String        @id @default(uuid())
+  transaction  Transaction   @relation(fields: [transactionId], references: [id])
+  transactionId String
+  user         User          @relation(fields: [userId], references: [id])
+  userId       String
+  signature    String        // The actual signature
+  createdAt    DateTime      @default(now())
+
+  @@unique([transactionId, userId])
+}
