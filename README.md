@@ -15,7 +15,7 @@ Welcome to the Multisig Solana Wallet project! This application provides a secur
 - **Solana**: Blockchain platform for deploying and executing smart contracts.
 - **Anchor**: Framework for Solana smart contract development.
 - **Prisma & PostgreSQL**: For user authentication and credential management.
-- **Frontend**: Wallet adapter integration for user interaction.
+- **Frontend**: Wallet adapter integration for user interaction. NextJS, TypeScript
 
 ## How It Works
 
