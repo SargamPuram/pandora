@@ -21,7 +21,7 @@ Welcome to the Multisig Solana Wallet project! This application provides a secur
 
 ### 1. User Authentication
 
-Users authenticate via their wallet adapter, which connects securely to their Solana wallet. Prisma with PostgreSQL is used to manage user credentials.
+Users authenticate via their wallet adapter, which connects securely to their Solana wallet. Prisma with PostgreSQL is used to manage user credentials. We are using JWT here. 
 
 ### 2. Create a Multisig Wallet
 
@@ -46,9 +46,9 @@ The smart contract, developed using Rust and the Anchor framework, includes the 
 
 
 ### Deployment
-The contract is deployed on the Solana blockchain. The contract address is:DikY9r1rRQojX8v9jSa7eV5C4sFgBn5XyadrLUVNN635
-/n
-/n
+The contract is deployed on the Solana blockchain. The contract address is: DikY9r1rRQojX8v9jSa7eV5C4sFgBn5XyadrLUVNN635
+<br> 
+You can check it out at https://explorer.solana.com/tx/ctsh3Wcdd5rvTmCbBaGBm15m73cfpFGinucdvbQqgWcpDyy7UcLAJo9souUeGKekiMaizzVKQzP7zxPimfVVDTU?cluster=devnet
 
 ## How to Use
 - Connect Your Wallet: Use the wallet adapter to log in.
@@ -57,12 +57,20 @@ The contract is deployed on the Solana blockchain. The contract address is:DikY9
 - Set the signature threshold.
 - Submit Transactions: Propose transactions to the wallet.
 - Sign Transactions: Authorized signers can sign the transactions. Once the required threshold is met, the transaction will be executed.
-/n 
 
+### Screenshots 
+![Screenshot_20240829_133033](https://github.com/user-attachments/assets/017d6149-e0b5-48e1-91f5-34fa4c3df72e)
+![image](https://github.com/user-attachments/assets/3b914f79-b91e-4b0b-9000-3bd69863edc7)
+![image](https://github.com/user-attachments/assets/c556c35b-ff2f-4713-ae63-9ad3e3bbc81c)
+![Screenshot_20240829_133358](https://github.com/user-attachments/assets/98f4c7ee-5657-4ed2-8d90-babe92d04a76)
+
+
+
+  
 ## Applications
-Corporate Fund Management: Manage funds with multiple approvers securely.
-DAO Governance: Facilitate decentralized decision-making and fund management.
-Shared Asset Control: Manage assets owned by multiple parties with shared control.
+- Corporate Fund Management: Manage funds with multiple approvers securely.
+- DAO Governance: Facilitate decentralized decision-making and fund management.
+- Shared Asset Control: Manage assets owned by multiple parties with shared control.
 
 
 Contributing
